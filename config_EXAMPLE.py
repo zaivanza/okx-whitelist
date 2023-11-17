@@ -8,9 +8,9 @@ EMAIL_LOGIN = "your_email_login"
 EMAIL_2FA = "your_email_2fa"
 
 links = {
-    'ETH'   : {'link' : 'https://www.okx.cab/ru/balance/withdrawal-address/eth/2',  'token' : 'ETH'}, # это для всех монет в сетях : # ERC20 | OKTC | Arbitrum one | zkSync Lite | zkSync Era | Optimism | Starknet
-    'ONE'   : {'link' : 'https://www.okx.cab/ru/balance/withdrawal-address/one/1926',  'token' : 'ONE'}, # это для монеты ONE в сети Harmony
-    'CORE'  : {'link' : 'https://www.okx.cab/ru/balance/withdrawal-address/core/2806', 'token' : 'CORE'}, # это для монеты ONE в сети Harmony
+    'ETH'   : {'link' : 'https://www.okx.cab/ru/balance/withdrawal-address/eth/2',  'token' : 'ETH'}, # it's for all the coins in the chains : ERC20 | OKTC | Arbitrum one | zkSync Lite | zkSync Era | Optimism | Starknet
+    'ONE'   : {'link' : 'https://www.okx.cab/ru/balance/withdrawal-address/one/1926',  'token' : 'ONE'}, # it's for the ONE coin on the Harmony network
+    'CORE'  : {'link' : 'https://www.okx.cab/ru/balance/withdrawal-address/core/2806', 'token' : 'CORE'}, # it's for the CORE coin on the CORE network
 }
 
 CHROME_VERSION = 119 # Change to your version of chrome if you get an error
