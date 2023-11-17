@@ -13,7 +13,8 @@
 # Настройка `config.py`
 1. `OKX_2FA` - сюда вставляем 2FA от okx аккаунта
 2. `EMAIL_LOGIN` - сюда вставляем логин от почты okx аккаунта
-3. `EMAIL_2FA` - сюда вставляем пароль приложений от почты. Вот как его получить: https://support.google.com/accounts/answer/185833?sjid=2552998692219979507-EU. [Пример пароля](https://github.com/zaivanza/okx-whitelist/email_2fa_example.jpg)
+3. `EMAIL_2FA` - сюда вставляем пароль приложений от почты. Вот как его получить: https://support.google.com/accounts/answer/185833?sjid=2552998692219979507-EU. 
+[Пример пароля](https://github.com/zaivanza/okx-whitelist/blob/main/email_2fa_example.jpg)
 4. `CHROME_VERSION` - сюда записываем версию своего хрома. Сейчас стоит 119, если будет ошибка при запуске, тогда меняй версию на свою.
 
 Устанавливаем библиотеки : `pip install -r requirements.txt`
