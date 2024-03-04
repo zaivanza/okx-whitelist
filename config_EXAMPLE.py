@@ -1,7 +1,7 @@
 # ================== Settings ==================
 
-chain   = 'Starknet'  # ERC20 | OKTC | Arbitrum One | zkSync Lite | zkSync Era | Optimism | Harmony | Starknet
-token   = 'ETH'  # ETH | ONE | CORE. To add other coins, you need to add them below in the links dictionary
+chain = 'Starknet'  # ERC20 | OKTC | Arbitrum One | zkSync Lite | zkSync Era | Optimism | Harmony | Starknet
+token = 'ETH'  # ETH | ONE | CORE. To add other coins, you need to add them below in the links dictionary
 
 OKX_2FA = "your_okx_2fa"
 EMAIL_LOGIN = "your_email_login"
