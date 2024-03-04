@@ -13,7 +13,6 @@ links = {
     'CORE'  : {'link' : 'https://www.okx.cab/ru/balance/withdrawal-address/core/2806', 'token' : 'CORE'}, # it's for the CORE coin on the CORE network
 }
 
-CHROME_VERSION = 119 # Change to your version of chrome if you get an error
 
 with open(f"wallets.txt", "r") as f:
     WALLETS = [row.strip() for row in f]
