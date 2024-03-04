@@ -6,6 +6,7 @@ token   = 'ETH' # ETH | ONE | CORE. To add other coins, you need to add them bel
 OKX_2FA = "your_okx_2fa"
 EMAIL_LOGIN = "your_email_login"
 EMAIL_2FA = "your_email_2fa"
+IMAP_URL = "imap.gmail.com"
 
 links = {
     'ETH'   : {'link' : 'https://www.okx.cab/ru/balance/withdrawal-address/eth/2',  'token' : 'ETH'}, # it's for all the coins in the chains : ERC20 | OKTC | Arbitrum one | zkSync Lite | zkSync Era | Optimism | Starknet
