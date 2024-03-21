@@ -130,31 +130,6 @@ class OKX:
         self.driver.find_elements(By.CLASS_NAME, 'btn-content')[-1].click()
         time.sleep(2)
         self.driver.get('https://www.okx.cab/ru/balance/withdrawal-address/eth/2')
-        # is_closer = False
-        # attempt = 0
-        # while attempt < 5:
-        #     try:
-        #         self.driver.find_element(By.CLASS_NAME, 'okui-dialog-top-r').click()
-        #         is_closer = True
-        #         break
-        #     except Exception as error:
-        #         logger.error(f'Error in confirmations function while closing: {error}')
-        #     try:
-        #         self.driver.find_element(By.ID, 'okdDialogCloseBtn').click()
-        #         is_closer = True
-        #         break
-        #     except Exception as error:
-        #         logger.error(f'Error in confirmations function while closing: {error}')
-        #     try:
-        #         self.driver.find_element(By.CLASS_NAME, 'icon iconfont okds-close okui-dialog-c-btn').click()
-        #         is_closer = True
-        #         break
-        #     except Exception as error:
-        #         logger.error(f'Error in confirmations function while closing: {error}')
-        #     attempt += 1
-        #     time.sleep(0.3)
-        # if not is_closer:
-        #     logger.error(f"Не смог закрыть дуру, закрой сам!!!")
 
     def main(self):
         """
