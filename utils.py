@@ -1,8 +1,12 @@
 import time
 import pyotp
+import sys
 from config import WALLETS, links, token, chain, EMAIL_LOGIN, EMAIL_2FA, OKX_2FA, IMAP_URL
 from loguru import logger
 from selenium.webdriver.remote.webdriver import By
+from selenium.common.exceptions import ElementClickInterceptedException, TimeoutException, StaleElementReferenceException
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as ec
 from seleniumbase import Driver
 from imap_tools import MailBox
 
@@ -43,8 +47,14 @@ class OKX:
                                            "div[2]/div[4]/div[2]/button[2]/span").click()
         time.sleep(2)
         # choose a chain
-        self.driver.find_element(By.XPATH, "/html/body/div[1]/div/div/div/div[2]/div/form/"
-                                           "div[1]/div[3]/div[2]/div/div/div/div/div/div/input[2]").click()
+        element = self.wait_an_element(By.XPATH, "//input[@placeholder='Выберите сеть']")
+        if element:
+            try:
+                element.click()
+            except (ElementClickInterceptedException, StaleElementReferenceException):
+                time.sleep(3)
+                element = self.wait_an_element(By.XPATH, "//input[@placeholder='Выберите сеть']")
+                element.click()
         time.sleep(0.3)
         chains = self.driver.find_elements(By.CLASS_NAME, "balance_okui-select-item")
         try:
@@ -77,13 +87,23 @@ class OKX:
                                            "/div[2]/div/form/div[4]/div/div/div/button").click()
         time.sleep(1)
 
+    def wait_an_element(self, by, element_selector: str, wait_time: int = 5):
+        try:
+            WebDriverWait(self.driver, wait_time).until(ec.presence_of_element_located((by, element_selector)))
+            return self.driver.find_element(by, element_selector)
+        except TimeoutException:
+            logger.error(f'Error while waiting for an element: {element_selector}')
+            sys.exit(-1)
+
     def confirmations(self):
         """Get the code from the mail and insert 2FA, close the window"""
         while True:
             for i in range(5):
                 try:
                     time.sleep(1)
-                    self.driver.find_element(By.CLASS_NAME, "balance_okui-input-code-btn").click()
+                    element = self.wait_an_element(By.XPATH, "//span[text()='Отправить код']")
+                    if element:
+                        element.click()
                     logger.success('Send code to email')
                     time.sleep(15)
                     break
@@ -109,31 +129,7 @@ class OKX:
         time.sleep(0.3)
         self.driver.find_elements(By.CLASS_NAME, 'btn-content')[-1].click()
         time.sleep(2)
-        is_closer = False
-        attempt = 0
-        while attempt < 5:
-            try:
-                self.driver.find_element(By.CLASS_NAME, 'okui-dialog-top-r').click()
-                is_closer = True
-                break
-            except Exception as error:
-                logger.error(f'Error in confirmations function while closing: {error}')
-            try:
-                self.driver.find_element(By.ID, 'okdDialogCloseBtn').click()
-                is_closer = True
-                break
-            except Exception as error:
-                logger.error(f'Error in confirmations function while closing: {error}')
-            try:
-                self.driver.find_element(By.CLASS_NAME, 'icon iconfont okds-close okui-dialog-c-btn').click()
-                is_closer = True
-                break
-            except Exception as error:
-                logger.error(f'Error in confirmations function while closing: {error}')
-            attempt += 1
-            time.sleep(0.3)
-        if not is_closer:
-            logger.error(f"Не смог закрыть дуру, закрой сам!!!")
+        self.driver.get('https://www.okx.cab/ru/balance/withdrawal-address/eth/2')
 
     def main(self):
         """
@@ -148,13 +144,9 @@ class OKX:
         time.sleep(5)
         for wallets in self.wallets_batches:
             while True:
-                try:
-                    self.filling_addresses(wallets)
-                    self.confirmations()
-                    break
-                except Exception as error:
-                    logger.error(f'Try again in 30 sec., error: {error}')
-                    time.sleep(30)
+                self.filling_addresses(wallets)
+                self.confirmations()
+                break
             logger.info('Sleep for 60   sec.')
             time.sleep(60)
         print()
