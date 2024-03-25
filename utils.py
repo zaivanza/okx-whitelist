@@ -19,6 +19,7 @@ class OKX:
         self._zero = 0
         self._len_wallets = len(WALLETS)
         self.wallets_batches = [WALLETS[i:i + self.AMOUNT_WALLETS] for i in range(0, len(WALLETS), self.AMOUNT_WALLETS)]
+        self.chain_link = links[token]['link']
 
     @staticmethod
     def manual_login():
@@ -129,7 +130,7 @@ class OKX:
         time.sleep(0.3)
         self.driver.find_elements(By.CLASS_NAME, 'btn-content')[-1].click()
         time.sleep(2)
-        self.driver.get('https://www.okx.cab/ru/balance/withdrawal-address/eth/2')
+        self.driver.get(self.chain_link)
 
     def main(self):
         """
@@ -140,7 +141,7 @@ class OKX:
         time.sleep(5)
         self.manual_login()
         time.sleep(5)
-        self.driver.get(links[token]['link'])
+        self.driver.get(self.chain_link)
         time.sleep(5)
         for wallets in self.wallets_batches:
             while True:
